@@ -31,7 +31,7 @@ export default class UserValidationValidator {
     'name.required': 'ey te crees gracioso? el nombre es obligatorio!!.',
     'name.minLength': 'El nombre debe tener al menos {{ options.minLength }} caracteres ponte al tiro mijo.',
     'name.maxLength': 'El nombre no puede tener más de {{ options.maxLength }} caracteres en que mundo vives?.',
-    'email.required': 'El correo electrónico es obligatorio si no a donde te legan mi mensajes bb.',
+    'email.required': 'El correo electrónico es obligatorio si no a donde te llegan mi mensajes bb.',
     'email.email': 'El correo electrónico no tiene un formato válido pilas mijo.',
     'email.maxLength': 'El correo electrónico no puede tener más de {{ options.maxLength }} caracteres.',
     'email.unique': 'Este correo electrónico ya está en uso ya ni la riegas men .',
