@@ -1,5 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Usuario from 'App/Models/Usuario'
+import UserValidationValidator from 'app/Validators/UserValidationValidator';
 export default class UsuariosController {
     public async index({ response }: HttpContextContract) {
         const usuarios = await Usuario.query().preload('posts').preload('comments') 
@@ -47,11 +48,13 @@ export default class UsuariosController {
         return response.status(500).json({ message: 'Error interno del servidor', error: error.message });
     }
             case 'POST':
+            const validatedData = await request.validate(UserValidationValidator);
             const userData = request.only(['name', 'email', 'password', 'phone', 'status']);
             const newUser = await Usuario.create(userData);
             return response.status(201).json(newUser);
             case 'PUT':
             try {
+                const validatedData = await request.validate(UserValidationValidator);
                 const userId = request.param('id');
                 const updatedData = request.only(['name', 'email', 'password', 'phone', 'status']);
                 const userToUpdate = await Usuario.find(userId);
