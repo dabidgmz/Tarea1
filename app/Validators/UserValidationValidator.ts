@@ -12,7 +12,7 @@ export default class UserValidationValidator {
     email: schema.string({}, [
       rules.email(),
       rules.maxLength(255),
-      rules.unique({ table: 'usuarios', column: 'email' }), // Cambiado 'users' a 'usuarios'
+      rules.unique({ table: 'usuarios', column: 'email' }), 
     ]),
     password: schema.string({}, [
       rules.minLength(8),
@@ -21,7 +21,7 @@ export default class UserValidationValidator {
     phone: schema.string({}, [
       rules.maxLength(10),
     ]),
-    status: schema.boolean.optional(),
+    status: schema.string.optional(),
     remember_me_token: schema.string.optional(),
     created_at: schema.date.optional(),
     updated_at: schema.date.optional(),
