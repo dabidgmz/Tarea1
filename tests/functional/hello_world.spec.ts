@@ -19,7 +19,7 @@ test.group('llamen a dios ', () => {
   });
 
   test('assertBodyContainCrear', async ({ client }) => {
-    const response = await client.post('/crud').form({
+    const response = await client.post('/usuario').form({
       name: 'prueba1',
       email: 'prueba1@gimail.com',
       phone: '8789099876',
