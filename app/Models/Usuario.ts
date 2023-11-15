@@ -4,6 +4,12 @@ import Comment from './Comment'
 import { BaseModel, column, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
 
 export default class Usuario extends BaseModel {
+  static put(arg0: string) {
+    throw new Error('Method not implemented.')
+  }
+  static post(arg0: string) {
+    throw new Error('Method not implemented.')
+  }
   @column({ isPrimary: true })
   public id: number
 
