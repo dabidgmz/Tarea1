@@ -1,69 +1,111 @@
 import { test } from '@japa/runner';
 
-test.group('llamen a dios ', () => {
-  test('assertBodyCrear', async ({ client }) => {
-    const response = await client.post('/usuario').form({
-      name: 'p0',
-      email: 'pp@gimail.com',
-      phone: '870098769',
-      password: '12345678',
-      status: 'activo',
+test.group('llamen a dios test', () => {
+  
+   test('Crea User', async ({ client, assert }) => {
+ const response = await client.post('usuario').form({
+      name: "jose",
+      email: "jose@gmail.com",
+      password: "12345678",
+      phone: "12345678",
+      status:"activo"
     });
-
-    let dataBody = JSON.parse(response.text());
-    console.log(dataBody);
+    let datosBody = JSON.parse(response.text());
+    console.log(datosBody);
+    response.assertStatus(201); 
     response.assertBody({
-      message: 'Usuario registrado exitosamente.',
-      active: 'activo',
+      message: "Usuario creado exitosamente",
+      user: {
+        name: "jose",
+        email: "jose@gmail.com",
+        id: datosBody.user.id,
+        updated_at: datosBody.user.updated_at
+      }
     });
+    if ('result' in datosBody) {
+      assert.isBoolean(datosBody.result);
+      assert.isTrue(datosBody.result);
+    }
   });
 
-  test('assertBodyContainCrear', async ({ client }) => {
-    const response = await client.post('/usuario').form({
-      name: 'prueba1',
-      email: 'prueba1@gimail.com',
-      phone: '8789099876',
-      password: '123abc',
-      status: 'activo',
+    
+    test('update User', async ({ client, assert }) => {
+      const response = await client.put('/usuario/5').form({
+        name: "josesillo",
+      email: "jose@gmail.com",
+      password: "12345678",
+      phone: "12345678",
+      status:"inactivo"
+      });
+      let datosBody = JSON.parse(response.text());
+      console.log(datosBody);
+      response.assertStatus(200); 
+      response.assertBody({
+        message: "Usuario actualizado exitosamente",
+        user: {
+          name: "josesillo",
+          email: "jose@gmail.com",
+          id: 5,
+          created_at: datosBody.user.created_at,
+          estado: 1, 
+          updated_at: datosBody.user.updated_at
+        }
+      });
+      if ('result' in datosBody) {
+        assert.isBoolean(datosBody.result);
+        assert.isTrue(datosBody.result);
+      }
     });
-
-    let dataBody = JSON.parse(response.text());
-    console.log(dataBody);
-
-    response.assertBodyContains({
-      message: 'Usuario registrado exitosamente.',
-      active: 'activo',
-    });
-  });
-
-  test('assertBodyEditar', async ({ client }) => {
-    const response = await client.put('/usuario/1').form({
-      name: 'pruebba',
-    });
-
-    let dataBody = JSON.parse(response.text());
-    console.log(dataBody);
-
-    response.assertBody({
-      active: 'inactivo',
-      message: 'Usuario modificado.',
-    });
-  });
-
-  test('assertBodyContainsEditar', async ({ client }) => {
-    const response = await client.put('/usuario/1').form({
-      name: 'preuba3',
-    });
-
-    let dataBody = JSON.parse(response.text());
-    console.log(dataBody);
-
-    response.assertBodyContains({
-      active: 'activo',
-      message: 'Usuario modificado.',
-    });
-  });
+        
+      test('Crea User', async ({ client, assert }) => {
+      const response = await client.post('/usuario').form({
+        name: "pablo",
+        email: "pablo@gmail.com",
+        password: "12345678",
+        phone: "12345678",
+        status:"activo"
+        });
+        let datosBody = JSON.parse(response.text());
+        console.log(datosBody);
+        response.assertStatus(201); 
+        response.assertBodyContains({
+          message: "Usuario creado exitosamente",
+          user: {
+            name: "pablo",
+            email: "pablo@gmail.com"
+          }
+        });
+        if ('result' in datosBody) {
+          assert.isBoolean(datosBody.result);
+          assert.isTrue(datosBody.result);
+        }
+      });
+        test('update User', async ({ client, assert }) => {
+          const response = await client.put('/usuario/6').form({
+            name: "pabillo",
+      email: "pabillo@gmail.com",
+      password: "12345678",
+      phone: "12345678",
+      status:"inactivo"
+          });
+          let datosBody = JSON.parse(response.text());
+          console.log(datosBody);
+          response.assertStatus(200); 
+          response.assertBodyContains({
+            message: "Usuario actualizado exitosamente",
+            user: {
+              name: "pabillo",
+              email: "pablo@gmail.com",
+            }
+          });
+          if ('result' in datosBody) {
+            assert.isBoolean(datosBody.result);
+            assert.isTrue(datosBody.result);
+          }
+        });
 });
+
+
 
 
 /*
